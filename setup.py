@@ -9,14 +9,11 @@ setup(
         'click >=6, <7',
         'PyYAML'
     ],
-    tests_require=[
-        'nose >=1.3.7,<2'
-    ],
     entry_points={
         'console_scripts': [
             'cv_generator = cv_generator.cmd:generate'
         ]
     },
-    test_suite='nose.collector'
+    test_suite='tests'
 )
 

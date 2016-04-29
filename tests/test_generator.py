@@ -1,10 +1,10 @@
 import unittest
 from cv_generator.generator import CVGenerator
 
-class TestCVGenerator:
+class CVGeneratorTest(unittest.TestCase):
     """Testing the CVGenerator class"""
-    def setup(self):
+    def setUp(self):
         self.generator = CVGenerator()
 
     def test_process(self):
-        self.generator.process()
+        self.generator.load_data()
