@@ -17,9 +17,6 @@ LATEX_JINJA_PARAMS = dict(
 
 TEMPLATES = ['cv.tex']
 
-# def process(datadir, templatedir):
-#     loader = jinja2.FileSystemLoader(os.path.abspath(templatedir))
-#     env = jinja2.Environment(loader=loader, **LATEX_JINJA_PARAMS)
-    
-class CVGenerator:
-    pass
+def process(configuration, data_dir, template_dir):
+    loader = jinja2.FileSystemLoader(os.path.abspath(template_dir))
+    env = jinja2.Environment(loader=loader, **LATEX_JINJA_PARAMS)
