@@ -1,7 +1,7 @@
 import unittest
 import cv_generator.generator
-from tempfile import TemporaryDirectory as tempdir
-from os.path import join as pjoin, isfile
+from tempfile import TemporaryDirectory, TemporaryFile
+from os.path import join as pjoin, getsize as filesize
 from yaml import dump as ymldump
 from textwrap import dedent
 
@@ -22,9 +22,12 @@ class CVGeneratorTest(unittest.TestCase):
     ''')
 
     def setUp(self):
-        self.configuration = {}
-        self.data_dir = tempdir()
-        self.template_dir = tempdir()
+        self.data_dir = TemporaryDirectory()
+        self.template_dir = TemporaryDirectory()
+        self.out_file = TemporaryFile(mode='r', suffix='.pdf')
+        self.configuration = {
+            'out_file': self.out_file.name
+        }
         with open(pjoin(self.data_dir.name, 'data.yml'), 'w') as data_file:
             ymldump(self.TEST_DATA, stream=data_file)
         with open(pjoin(self.template_dir.name, 'main.tex'), 'w') as template_file:
@@ -36,4 +39,5 @@ class CVGeneratorTest(unittest.TestCase):
             data_dir=self.data_dir.name,
             template_dir=self.template_dir.name
         )
+        self.assertGreater(filesize(self.out_file.name), 0)
         self.fail('Incomplete test')
